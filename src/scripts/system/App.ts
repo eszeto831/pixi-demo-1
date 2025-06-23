@@ -4,9 +4,25 @@ import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
 import { Loader } from "./Loader";
 import { ScenesManager } from "./ScenesManager";
+import { Config } from "../game/Config";
 
 class Application {
-    run(config) {
+    config:typeof Config;
+    app:PIXI.Application;
+    loader:Loader;
+    scenes:ScenesManager;
+    physics:Matter.Engine;
+
+    constructor() {
+        this.config = new ConfigData();
+        this.app = new PIXI.Application({resizeTo: window});
+        this.loader = new Loader(this.app.loader, this.config);
+        this.scenes = new ScenesManager();
+        const runner = Matter.Runner.create();
+        this.physics = Matter.Engine.create();
+    }
+
+    run(config:typeof Config) {
         gsap.registerPlugin(PixiPlugin);
         PixiPlugin.registerPIXI(PIXI);
 
@@ -33,11 +49,11 @@ class Application {
     }
     // [/06]
 
-    res(key) {
+    res(key:string) {
         return this.loader.resources[key].texture;
     }
 
-    sprite(key) {
+    sprite(key:string) {
         return new PIXI.Sprite(this.res(key));
     }
 

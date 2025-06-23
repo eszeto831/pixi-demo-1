@@ -1,8 +1,15 @@
 import { Tools } from "../system/Tools";
 import { GameScene } from "./GameScene";
 
+export class ConfigData {
+
+    loader:number;
+    container:PIXI.Container;
+    sprites:PIXI.Sprite[];
+}
+
 export const Config = {
-    loader: Tools.massiveRequire(require["context"]('./../../sprites/', true, /\.(mp3|png|jpe?g)$/)),
+    loader: Tools.massiveRequire(require.context('./../../sprites/', true, /\.(mp3|png|jpe?g)$/)),
     bgSpeed: 2,
     score: {
         x: 10,
