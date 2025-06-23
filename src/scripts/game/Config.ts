@@ -1,11 +1,17 @@
 import { Tools } from "../system/Tools";
 import { GameScene } from "./GameScene";
+import { RequireEntry } from "../system/Tools";
+import * as PIXI from "pixi.js";
 
 export class ConfigData {
 
-    loader:number;
-    container:PIXI.Container;
-    sprites:PIXI.Sprite[];
+    loader:RequireEntry[];
+    bgSpeed:number;
+
+    constructor() {
+        this.loader = [];
+        this.bgSpeed = 0;
+    }
 }
 
 export const Config = {

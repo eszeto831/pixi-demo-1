@@ -4,7 +4,7 @@ import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
 import { Loader } from "./Loader";
 import { ScenesManager } from "./ScenesManager";
-import { Config } from "../game/Config";
+import { ConfigData } from "../game/Config";
 
 class Application {
     config:typeof Config;

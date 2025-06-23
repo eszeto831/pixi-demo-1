@@ -1,5 +1,12 @@
+import * as PIXI from "pixi.js";
+import { ConfigData } from "../game/Config";
+
 export class Loader {
-    constructor(loader, config) {
+    loader:PIXI.Loader;
+    config:ConfigData;
+    resources:PIXI.utils.Dict<PIXI.LoaderResource>;
+
+    constructor(loader:PIXI.Loader, config:ConfigData) {
         this.loader = loader;
         this.config = config;
         this.resources = {};
@@ -10,6 +17,8 @@ export class Loader {
             let key = asset.key.substr(asset.key.lastIndexOf('/') + 1);
             key = key.substring(0, key.indexOf('.'));
             if (asset.key.indexOf(".png") !== -1 || asset.key.indexOf(".jpg") !== -1) {
+                let x:__WebpackModuleApi.RequireContext = require.context("");
+                x.default
                 this.loader.add(key, asset.data.default)
             }
         }
@@ -17,7 +26,7 @@ export class Loader {
         return new Promise(resolve => {
             this.loader.load((loader, resources) => {
                 this.resources = resources;
-                resolve();
+                resolve("Data successfully fetched!");
             });
         });
     }
