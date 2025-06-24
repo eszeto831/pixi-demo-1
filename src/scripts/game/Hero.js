@@ -10,6 +10,7 @@ export class Hero {
 
         this.dx = App.config.hero.airDashSpeed;
         this.dy = App.config.hero.jumpSpeed;
+        this.rightEdgeBounceSpeed = App.config.hero.rightEdgeBounceSpeed;
         this.maxJumps = App.config.hero.maxJumps;
         this.jumpIndex = 0;
         this.score = 0;
@@ -63,6 +64,13 @@ export class Hero {
             this.sprite.emit("die");
         }
         // [/14]
+
+        if (this.sprite.x > window.innerWidth) {
+            console.log("edmond :: out of bound!!!!!!!!!!");
+            Matter.Body.setVelocity(this.body, { x: -this.rightEdgeBounceSpeed, y: -this.dy });
+            this.switchAnimation(this.jumpAnimation);
+            this.jumpIndex = 1;
+        }
     }
 
     switchAnimation(animation)
