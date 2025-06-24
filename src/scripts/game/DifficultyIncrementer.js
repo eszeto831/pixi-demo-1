@@ -13,7 +13,6 @@ export class DifficultyIncrementer {
     update(dt) {
         this.totalTime += dt;
         let diff = Math.floor(this.totalTime / this.incrementTime);
-        console.log("edmond :: total "+this.totalTime+" diff "+diff);
         this.platformSpeedAddition = diff * this.platformSpeedIncrement;
         this.bgSpeedAddition = diff * this.bgSpeedIncrement;
     }
