@@ -7,7 +7,7 @@ import { ScenesManager } from "./ScenesManager";
 import { ConfigData } from "../game/Config";
 
 class Application {
-    config:typeof Config;
+    config:ConfigData;
     app:PIXI.Application;
     loader:Loader;
     scenes:ScenesManager;
@@ -22,7 +22,7 @@ class Application {
         this.physics = Matter.Engine.create();
     }
 
-    run(config:typeof Config) {
+    run(config:ConfigData) {
         gsap.registerPlugin(PixiPlugin);
         PixiPlugin.registerPIXI(PIXI);
 

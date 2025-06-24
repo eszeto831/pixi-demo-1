@@ -17,9 +17,7 @@ export class Loader {
             let key = asset.key.substr(asset.key.lastIndexOf('/') + 1);
             key = key.substring(0, key.indexOf('.'));
             if (asset.key.indexOf(".png") !== -1 || asset.key.indexOf(".jpg") !== -1) {
-                let x:__WebpackModuleApi.RequireContext = require.context("");
-                x.default
-                this.loader.add(key, asset.data.default)
+                this.loader.add(key, asset.req(key).default)
             }
         }
 

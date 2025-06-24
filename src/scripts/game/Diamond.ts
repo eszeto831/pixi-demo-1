@@ -1,13 +1,17 @@
 import * as Matter from 'matter-js';
 import { App } from '../system/App';
+import * as PIXI from "pixi.js";
 
 export class Diamond {
-    constructor(x, y) {
+    sprite:PIXI.Sprite;
+
+    constructor(x:number, y:number) {
+        this.sprite = null;
         this.createSprite(x, y);
         App.app.ticker.add(this.update, this);
     }
 
-    createSprite(x, y) {
+    createSprite(x:number, y:number) {
         this.sprite = App.sprite("diamond");
         this.sprite.x = x;
         this.sprite.y = y;

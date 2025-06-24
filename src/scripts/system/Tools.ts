@@ -4,7 +4,7 @@ export class Tools {
         const files:RequireEntry[] = [];
 
         req.keys().forEach(key => {
-            files.push(new RequireEntry(key, req(key)));
+            files.push(new RequireEntry(key, req));
         });
 
         return files;
@@ -13,10 +13,10 @@ export class Tools {
 
 export class RequireEntry {
     key:String;
-    data:__WebpackModuleApi.RequireContext;
+    req:__WebpackModuleApi.RequireContext;
 
-    constructor(key:String, data:__WebpackModuleApi.RequireContext) {
+    constructor(key:String, req:__WebpackModuleApi.RequireContext) {
         this.key = key;
-        this.data = data;
+        this.req = req;
     }
 }
