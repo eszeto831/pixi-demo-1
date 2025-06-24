@@ -1,14 +1,17 @@
 import * as Matter from 'matter-js';
 import { App } from '../system/App';
+import { TweenMax } from 'gsap';
 
 export class Diamond {
     constructor(x, y) {
         this.createSprite(x, y);
         App.app.ticker.add(this.update, this);
+        this.flyingAway = false;
     }
 
     createSprite(x, y) {
         this.sprite = App.sprite("diamond");
+        this.sprite.anchor.set(0.5);
         this.sprite.x = x;
         this.sprite.y = y;
     }
@@ -24,6 +27,24 @@ export class Diamond {
         this.body.isSensor = true;
         this.body.gameDiamond = this;
         Matter.World.add(App.physics.world, this.body);
+    }
+
+    flyAway() {
+        if(!this.flyingAway)
+        {
+            this.flyingAway = true;
+            TweenMax.to(this.sprite, 1, {
+                x: this.sprite.x,
+                y: this.sprite.y - 30,
+                alpha: 0.5,
+                onUpdate: () => {
+                    this.sprite.rotation += 0.1;
+                },
+                onComplete: () => {
+                    this.destroy();
+                }
+            });
+        }
     }
 
     // [14]

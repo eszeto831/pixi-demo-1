@@ -17,11 +17,14 @@ export class Hero {
     }
 
     collectDiamond(diamond) {
-        ++this.score;
-        //[13]
-        this.walkAnimation.emit("score");
-        //[/13]
-        diamond.destroy();
+        if(!diamond.flyingAway)
+        {
+            ++this.score;
+            //[13]
+            this.walkAnimation.emit("score");
+            //[/13]
+            diamond.flyAway();
+        }
     }
     //[/12]
 
