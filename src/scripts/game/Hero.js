@@ -29,14 +29,14 @@ export class Hero {
             ++this.jumpIndex;
             this.platform = null;
             Matter.Body.setVelocity(this.body, { x: 0, y: -this.dy });
-            //this.sprite = this.jumpAnimation;
+            this.switchAnimation(this.jumpAnimation);
         }
         else if (this.jumpIndex === 1) {
             ++this.jumpIndex;
             this.platform = null;
             console.log("edmond :: dx "+this.dx+" dy "+this.dy);
             Matter.Body.setVelocity(this.body, { x: this.dx, y: 0 });
-            //this.sprite = this.airDashAnimation;
+            this.switchAnimation(this.airDashAnimation);
         }
     }
 
@@ -44,7 +44,7 @@ export class Hero {
     stayOnPlatform(platform) {
         this.platform = platform;
         this.jumpIndex = 0;
-        //this.sprite = this.walkAnimation;
+        this.switchAnimation(this.walkAnimation);
     }
     // [/08]
 
@@ -65,33 +65,93 @@ export class Hero {
         // [/14]
     }
 
-    createSprite() {
-        this.walkAnimation = new PIXI.AnimatedSprite([
-            App.res("walk1"),
-            App.res("walk2")
-        ]);
-        this.jumpAnimation = new PIXI.AnimatedSprite([
-            App.res("jump")
-        ]);
-        this.landAnimation = new PIXI.AnimatedSprite([
-            App.res("hero")
-        ]);
-        this.airDashAnimation = new PIXI.AnimatedSprite([
-            App.res("fly1"),
-            App.res("fly2")
-        ]);
-        this.sprite = this.walkAnimation;
+    switchAnimation(animation)
+    {
+        console.log("edmond :: swapping anim");
+        if(animation == null) console.log("edmond :: swapping to null animation");
+        //this.walkAnimation.stop();
+        this.sprite.stop();
+        this.sprite.visible = false;
+        this.sprite = animation;
+        //this.sprite.loop = true;
+        //this.sprite.animationSpeed = 0.1;
+        if(this.sprite == null) console.log("edmond :: null sprite");
+        if(this.body == null) console.log("edmond :: null body");
+        if(this.body.position == null) console.log("edmond :: null body.position");
+        this.sprite.x = this.body.position.x - this.sprite.width / 2;
+        this.sprite.y = this.body.position.y - this.sprite.height / 2;
+        this.sprite.play();
+        this.sprite.visible = true;
+        //animation.play();
 
+    }
+
+    createSprite() {
+        if(this.walkAnimation == null)
+        {
+            this.walkAnimation = new PIXI.AnimatedSprite([
+                App.res("walk1"),
+                App.res("walk2")
+            ]);
+            this.walkAnimation.x = App.config.hero.position.x;
+            this.walkAnimation.y = App.config.hero.position.y;
+            this.walkAnimation.loop = true;
+            this.walkAnimation.animationSpeed = 0.1;
+            this.walkAnimation.visible = true;
+        }
+
+        if(this.jumpAnimation == null)
+        {
+            this.jumpAnimation = new PIXI.AnimatedSprite([
+                App.res("jump")
+            ]);
+            this.jumpAnimation.x = App.config.hero.position.x;
+            this.jumpAnimation.y = App.config.hero.position.y;
+            this.jumpAnimation.loop = true;
+            this.jumpAnimation.animationSpeed = 0.1;
+            this.jumpAnimation.visible = false;
+        }
+
+        if(this.landAnimation == null)
+        {
+            this.landAnimation = new PIXI.AnimatedSprite([
+                App.res("hero")
+            ]);
+            this.landAnimation.x = App.config.hero.position.x;
+            this.landAnimation.y = App.config.hero.position.y;
+            this.landAnimation.loop = true;
+            this.landAnimation.animationSpeed = 0.1;
+            this.landAnimation.visible = false;
+        }
+
+        if(this.airDashAnimation == null)
+        {
+            this.airDashAnimation = new PIXI.AnimatedSprite([
+                App.res("fly1"),
+                App.res("fly2")
+            ]);
+            this.airDashAnimation.x = App.config.hero.position.x;
+            this.airDashAnimation.y = App.config.hero.position.y;
+            this.airDashAnimation.loop = true;
+            this.airDashAnimation.animationSpeed = 0.1;
+            this.airDashAnimation.visible = false;
+        }
+/*
         this.sprite.x = App.config.hero.position.x;
         this.sprite.y = App.config.hero.position.y;
         this.sprite.loop = true;
         this.sprite.animationSpeed = 0.1;
+*/
+        this.sprite = this.walkAnimation;
         this.sprite.play();
     }
 
     destroy() {
         App.app.ticker.remove(this.update, this);
         Matter.World.add(App.physics.world, this.body);
-        this.sprite.destroy();
+        //this.walkAnimation.destroy();
+        //this.jumpAnimation.destroy();
+        //this.landAnimation.destroy();
+        //this.airDashAnimation.destroy();
     }
 }

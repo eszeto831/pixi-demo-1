@@ -48,7 +48,11 @@ export class GameScene extends Scene {
 
     createHero() {
         this.hero = new Hero();
-        this.container.addChild(this.hero.sprite);
+        this.container.addChild(this.hero.airDashAnimation);
+        this.container.addChild(this.hero.jumpAnimation);
+        this.container.addChild(this.hero.landAnimation);
+        this.container.addChild(this.hero.walkAnimation);
+        //this.container.addChild(this.hero.sprite);
 
         this.container.interactive = true;
         this.container.on("pointerdown", () => {
