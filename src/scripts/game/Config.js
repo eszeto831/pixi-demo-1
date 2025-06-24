@@ -23,7 +23,7 @@ export const Config = {
         }
     },
     platforms: {
-        moveSpeed: -1.5,
+        moveSpeed: -2.5,
         ranges: {
             rows: {
                 min: 2,
@@ -38,6 +38,11 @@ export const Config = {
                 max: 200
             }
         }
+    },
+    difficultyIncrementer: {
+        incrementTime: 150,
+        platformSpeedIncrement: -0.5,
+        bgSpeedIncrement: 0.5,
     },
     hero: {
         jumpSpeed: 15,

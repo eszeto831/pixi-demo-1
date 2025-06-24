@@ -5,9 +5,11 @@ import { Background } from "./Background";
 import { Scene } from '../system/Scene';
 import { Hero } from "./Hero";
 import { Platforms } from "./Platforms";
+import { DifficultyIncrementer } from "./DifficultyIncrementer";
 
 export class GameScene extends Scene {
     create() {
+        this.createDifficultyIncrementer()
         this.createBackground();
         this.createHero();
         this.createPlatforms();
@@ -77,9 +79,15 @@ export class GameScene extends Scene {
         this.container.addChild(this.platfroms.container);
     }
 
+    createDifficultyIncrementer()
+    {
+        this.difficultyIncrementer = new DifficultyIncrementer()
+    }
+
     update(dt) {
-        this.bg.update(dt);
-        this.platfroms.update(dt);
+        this.difficultyIncrementer.update(dt);
+        this.bg.update(dt, this.difficultyIncrementer.getAdditionalBgSpeed());
+        this.platfroms.update(dt, this.difficultyIncrementer.getAdditionalPlatformSpeed());
     }
 
     destroy() {

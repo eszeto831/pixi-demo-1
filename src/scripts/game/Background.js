@@ -39,8 +39,8 @@ export class Background {
         sprite.x -= offset;
     }
 
-    update(dt) {
-        const offset = this.speed * dt;
+    update(dt, additionalSpeed) {
+        const offset = (this.speed + additionalSpeed) * dt;
 
         this.sprites.forEach(sprite => {
             this.move(sprite, offset);
