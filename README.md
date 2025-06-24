@@ -1,4 +1,9 @@
 # TEST BUILD: https://seatoadgames.com/SecretRoom/TestPixi/deploy/
+- fix background not filling the width of the screen depending on monitor size
+- changed the second jump into an air dash
+- add jump and air dash animation
+- when reaching the right of the screen, bounce back
+- add tween animation for diamonds when collecting
 
 # Client Engineer Game Development Coding Assignment
 
