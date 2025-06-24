@@ -19,13 +19,14 @@ export class Hero {
     collectDiamond(diamond) {
         ++this.score;
         //[13]
-        this.sprite.emit("score");
+        this.walkAnimation.emit("score");
         //[/13]
         diamond.destroy();
     }
     //[/12]
 
     startJump() {
+        console.log("edmond :: jumping index: "+this.jumpIndex);
         if (this.platform) {
             ++this.jumpIndex;
             this.platform = null;
@@ -58,12 +59,7 @@ export class Hero {
     update() {
         this.sprite.x = this.body.position.x - this.sprite.width / 2;
         this.sprite.y = this.body.position.y - this.sprite.height / 2;
-
-        // [14]
-        if (this.sprite.y > window.innerHeight) {
-            this.sprite.emit("die");
-        }
-        // [/14]
+        //console.log("edmond :: pos x " + this.sprite.x + " y " + this.sprite.y);
 
         if (this.sprite.x > window.innerWidth) {
             console.log("edmond :: out of bound!!!!!!!!!!");
@@ -71,6 +67,13 @@ export class Hero {
             this.switchAnimation(this.jumpAnimation);
             this.jumpIndex = 1;
         }
+
+        // [14]
+        if (this.sprite.y > window.innerHeight) {
+            console.log("edmond :: emit die");
+            this.walkAnimation.emit("die");
+        }
+        // [/14]
     }
 
     switchAnimation(animation)

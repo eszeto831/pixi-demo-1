@@ -20,7 +20,8 @@ export class GameScene extends Scene {
     createUI() {
         this.labelScore = new LabelScore();
         this.container.addChild(this.labelScore);
-        this.hero.sprite.on("score", () => {
+        
+        this.hero.walkAnimation.on("score", () => {
             this.labelScore.renderScore(this.hero.score);
         });
     }
@@ -60,7 +61,8 @@ export class GameScene extends Scene {
         });
 
         // [14]
-        this.hero.sprite.once("die", () => {
+        this.hero.walkAnimation.once("die", () => {
+            console.log("edmond :: die restart game");
             App.scenes.start("Game");
         });
         // [/14]
