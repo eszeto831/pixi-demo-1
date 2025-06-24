@@ -4,6 +4,7 @@
 - add jump and air dash animation
 - when reaching the right of the screen, bounce back
 - add tween animation for diamonds when collecting
+- platforms move faster over time
 
 # Client Engineer Game Development Coding Assignment
 
