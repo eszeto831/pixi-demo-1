@@ -8,6 +8,7 @@ export class Hero {
         this.createBody();
         App.app.ticker.add(this.update, this);
 
+        this.dx = App.config.hero.airDashSpeed;
         this.dy = App.config.hero.jumpSpeed;
         this.maxJumps = App.config.hero.maxJumps;
         this.jumpIndex = 0;
@@ -24,10 +25,18 @@ export class Hero {
     //[/12]
 
     startJump() {
-        if (this.platform || this.jumpIndex === 1) {
+        if (this.platform) {
             ++this.jumpIndex;
             this.platform = null;
             Matter.Body.setVelocity(this.body, { x: 0, y: -this.dy });
+            //this.sprite = this.jumpAnimation;
+        }
+        else if (this.jumpIndex === 1) {
+            ++this.jumpIndex;
+            this.platform = null;
+            console.log("edmond :: dx "+this.dx+" dy "+this.dy);
+            Matter.Body.setVelocity(this.body, { x: this.dx, y: 0 });
+            //this.sprite = this.airDashAnimation;
         }
     }
 
@@ -35,6 +44,7 @@ export class Hero {
     stayOnPlatform(platform) {
         this.platform = platform;
         this.jumpIndex = 0;
+        //this.sprite = this.walkAnimation;
     }
     // [/08]
 
@@ -56,10 +66,21 @@ export class Hero {
     }
 
     createSprite() {
-        this.sprite = new PIXI.AnimatedSprite([
+        this.walkAnimation = new PIXI.AnimatedSprite([
             App.res("walk1"),
             App.res("walk2")
         ]);
+        this.jumpAnimation = new PIXI.AnimatedSprite([
+            App.res("jump")
+        ]);
+        this.landAnimation = new PIXI.AnimatedSprite([
+            App.res("hero")
+        ]);
+        this.airDashAnimation = new PIXI.AnimatedSprite([
+            App.res("fly1"),
+            App.res("fly2")
+        ]);
+        this.sprite = this.walkAnimation;
 
         this.sprite.x = App.config.hero.position.x;
         this.sprite.y = App.config.hero.position.y;

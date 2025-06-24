@@ -41,6 +41,7 @@ export const Config = {
     },
     hero: {
         jumpSpeed: 15,
+        airDashSpeed: 15,
         maxJumps: 2,
         position: {
             x: 350,
