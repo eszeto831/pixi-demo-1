@@ -29,7 +29,6 @@ export class Hero {
     //[/12]
 
     startJump() {
-        console.log("edmond :: jumping index: "+this.jumpIndex);
         if (this.platform) {
             ++this.jumpIndex;
             this.platform = null;
@@ -39,7 +38,6 @@ export class Hero {
         else if (this.jumpIndex === 1) {
             ++this.jumpIndex;
             this.platform = null;
-            console.log("edmond :: dx "+this.dx+" dy "+this.dy);
             Matter.Body.setVelocity(this.body, { x: this.dx, y: 0 });
             this.switchAnimation(this.airDashAnimation);
         }
@@ -62,10 +60,8 @@ export class Hero {
     update() {
         this.sprite.x = this.body.position.x - this.sprite.width / 2;
         this.sprite.y = this.body.position.y - this.sprite.height / 2;
-        //console.log("edmond :: pos x " + this.sprite.x + " y " + this.sprite.y);
 
         if (this.sprite.x > window.innerWidth) {
-            console.log("edmond :: out of bound!!!!!!!!!!");
             Matter.Body.setVelocity(this.body, { x: -this.rightEdgeBounceSpeed, y: -this.dy });
             this.switchAnimation(this.jumpAnimation);
             this.jumpIndex = 1;
@@ -73,7 +69,6 @@ export class Hero {
 
         // [14]
         if (this.sprite.y > window.innerHeight) {
-            console.log("edmond :: emit die");
             this.walkAnimation.emit("die");
         }
         // [/14]
@@ -81,22 +76,13 @@ export class Hero {
 
     switchAnimation(animation)
     {
-        console.log("edmond :: swapping anim");
-        if(animation == null) console.log("edmond :: swapping to null animation");
-        //this.walkAnimation.stop();
         this.sprite.stop();
         this.sprite.visible = false;
         this.sprite = animation;
-        //this.sprite.loop = true;
-        //this.sprite.animationSpeed = 0.1;
-        if(this.sprite == null) console.log("edmond :: null sprite");
-        if(this.body == null) console.log("edmond :: null body");
-        if(this.body.position == null) console.log("edmond :: null body.position");
         this.sprite.x = this.body.position.x - this.sprite.width / 2;
         this.sprite.y = this.body.position.y - this.sprite.height / 2;
         this.sprite.play();
         this.sprite.visible = true;
-        //animation.play();
 
     }
 
@@ -150,12 +136,7 @@ export class Hero {
             this.airDashAnimation.animationSpeed = 0.1;
             this.airDashAnimation.visible = false;
         }
-/*
-        this.sprite.x = App.config.hero.position.x;
-        this.sprite.y = App.config.hero.position.y;
-        this.sprite.loop = true;
-        this.sprite.animationSpeed = 0.1;
-*/
+
         this.sprite = this.walkAnimation;
         this.sprite.play();
     }
@@ -163,9 +144,5 @@ export class Hero {
     destroy() {
         App.app.ticker.remove(this.update, this);
         Matter.World.add(App.physics.world, this.body);
-        //this.walkAnimation.destroy();
-        //this.jumpAnimation.destroy();
-        //this.landAnimation.destroy();
-        //this.airDashAnimation.destroy();
     }
 }

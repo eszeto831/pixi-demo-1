@@ -62,7 +62,6 @@ export class GameScene extends Scene {
 
         // [14]
         this.hero.walkAnimation.once("die", () => {
-            console.log("edmond :: die restart game");
             App.scenes.start("Game");
         });
         // [/14]

@@ -12,11 +12,7 @@ export class Background {
         this.sprites = [];
 
         const sprite = App.sprite("bg");
-        console.log("edmond :: hello world");
-        console.log("edmond :: sprites width: "+sprite.width);
-        console.log("edmond :: screen width: "+App.app.screen.width);
         const spritesrequied = (App.app.screen.width / sprite.width) + 1;
-        console.log("edmond :: sprites required: "+spritesrequied);
         for (let i = 0; i < spritesrequied; i++) {
             this.createSprite(i);
         }
