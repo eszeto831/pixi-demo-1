@@ -33,7 +33,7 @@ export class Diamond {
         if(!this.flyingAway)
         {
             this.flyingAway = true;
-            TweenMax.to(this.sprite, 1, {
+            this.tween = TweenMax.to(this.sprite, 1, {
                 x: this.sprite.x,
                 y: this.sprite.y - 30,
                 alpha: 0.5,
@@ -50,6 +50,10 @@ export class Diamond {
     // [14]
     destroy() {
         if (this.sprite) {
+            if(this.tween)
+            {
+                this.tween.kill();
+            }
             App.app.ticker.remove(this.update, this);
             Matter.World.remove(App.physics.world, this.body);
             this.sprite.destroy();
