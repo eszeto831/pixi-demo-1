@@ -17,7 +17,7 @@ export class Hero {
     }
 
     collectDiamond(diamond) {
-        if(!diamond.flyingAway)
+        //if(!diamond.flyingAway)
         {
             ++this.score;
             //[13]
