@@ -24,7 +24,6 @@ export class GameScene extends Scene {
         this.container.addChild(this.labelScore);
         
         this.hero.walkAnimation.on("score", () => {
-            console.log("edmond :: score "+this.hero.score);
             this.labelScore.renderScore(this.hero.score);
         });
     }
