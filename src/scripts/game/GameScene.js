@@ -95,6 +95,7 @@ export class GameScene extends Scene {
         Matter.Events.off(App.physics, 'collisionStart', this.onCollisionStart.bind(this));
         App.app.ticker.remove(this.update, this);
         this.bg.destroy();
+        this.hero.walkAnimation.removeAllListeners("score");
         this.hero.destroy();
         this.platfroms.destroy();
         this.labelScore.destroy();
