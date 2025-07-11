@@ -3,6 +3,7 @@ import { App } from "./App";
 
 export class Scene {
     constructor() {
+        console.log("edmond :: base scnee constr");
         this.container = new PIXI.Container();
         this.container.interactive = true;
         this.create();
@@ -14,6 +15,7 @@ export class Scene {
     }
 
     destroy() {
-        
+        console.log("edmond :: kill scene");
+        this.container.destroy();
     }
 }

@@ -8,6 +8,11 @@ import { Platforms } from "./Platforms";
 import { DifficultyIncrementer } from "./DifficultyIncrementer";
 
 export class GameScene extends Scene {
+    constructor() {
+        super();
+        console.log("edmond :: game scnee constr");
+    }
+
     create() {
         this.createDifficultyIncrementer()
         this.createBackground();
@@ -24,13 +29,16 @@ export class GameScene extends Scene {
         this.container.addChild(this.labelScore);
         
         this.hero.walkAnimation.on("score", () => {
+            
+        console.log(`edmond :: score emit call`);
             this.labelScore.renderScore(this.hero.score);
         });
     }
     //[13]
 
     setEvents() {
-        Matter.Events.on(App.physics, 'collisionStart', this.onCollisionStart.bind(this));
+        this.onCollisionStart = this.onCollisionStart.bind(this);
+        Matter.Events.on(App.physics, 'collisionStart', this.onCollisionStart);
     }
 
     onCollisionStart(event) {
@@ -91,11 +99,13 @@ export class GameScene extends Scene {
     }
 
     destroy() {
-        Matter.Events.off(App.physics, 'collisionStart', this.onCollisionStart.bind(this));
+        super.destroy();
+        Matter.Events.off(App.physics, 'collisionStart', this.onCollisionStart);
         App.app.ticker.remove(this.update, this);
         this.bg.destroy();
         this.hero.walkAnimation.removeAllListeners("score");
         this.hero.destroy();
+        this.hero = null;
         this.platfroms.destroy();
         this.labelScore.destroy();
     }

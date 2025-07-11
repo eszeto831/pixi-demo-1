@@ -13,6 +13,7 @@ class Application {
         this.config = config;
 
         this.app = new PIXI.Application({resizeTo: window});
+        globalThis.__PIXI_APP__ = this.app;
         document.body.appendChild(this.app.view);
 
         this.loader = new Loader(this.app.loader, this.config);

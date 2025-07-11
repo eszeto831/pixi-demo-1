@@ -3,6 +3,9 @@ import * as PIXI from "pixi.js";
 import { App } from '../system/App';
 
 export class Hero {
+
+    static idnum = 0;
+
     constructor() {
         this.createSprite();
         this.createBody();
@@ -14,11 +17,15 @@ export class Hero {
         this.maxJumps = App.config.hero.maxJumps;
         this.jumpIndex = 0;
         this.score = 0;
+
+        this.id = ++Hero.idnum;
+            console.log("edmond :: creating new hero: "+this.id);
     }
 
     collectDiamond(diamond) {
-        //if(!diamond.flyingAway)
+        if(!diamond.flyingAway)
         {
+            console.log("edmond :: score "+this.score+ " "+this.id);
             ++this.score;
             //[13]
             this.walkAnimation.emit("score");
@@ -142,7 +149,10 @@ export class Hero {
     }
 
     destroy() {
+
+//this.sprite.destroy();
+
         App.app.ticker.remove(this.update, this);
-        Matter.World.add(App.physics.world, this.body);
+        Matter.World.remove(App.physics.world, this.body);
     }
 }
